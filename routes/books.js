@@ -3,12 +3,20 @@ const router = express.Router()
 const booksService = require('../services/books.service')
 
 
+router.get('/', async (req, res, next) => {
+    try {
+        res.json(await booksService.getBookList(req.query.page, req.query.booksPerPage));
+    } catch (err) {
+        console.error(`Error while getting books: `, err.message);
+        next(err);
+    }
+});
+
 router.get('/:isbn', async (req, res, next) => {
     try {
-        const { isbn } = req.params;
-        res.json(await booksService.getBook(isbn));
+        res.json(await booksService.getBook(req.params.isbn));
     } catch (err) {
-        console.error(`Error while getting book with ISBN ${isbn}: `, err.message);
+        console.error(`Error while getting book with ISBN: `, err.message);
         next(err);
     }
 });
