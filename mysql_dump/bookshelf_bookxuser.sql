@@ -25,18 +25,19 @@ DROP TABLE IF EXISTS `bookxuser`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `bookxuser` (
-  `id` int NOT NULL AUTO_INCREMENT,
   `user_email` varchar(255) NOT NULL,
   `book_ISBN` bigint NOT NULL,
   `addition_date` datetime DEFAULT NULL,
   `deletion_date` datetime DEFAULT NULL,
   `readings_counter` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  `review` varchar(255) DEFAULT NULL,
+  `isReccomended` varchar(5) DEFAULT NULL,
+  PRIMARY KEY (`user_email`,`book_ISBN`),
   KEY `email_idx` (`user_email`),
   KEY `book_idx` (`book_ISBN`),
   CONSTRAINT `book` FOREIGN KEY (`book_ISBN`) REFERENCES `book` (`ISBN`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `user` FOREIGN KEY (`user_email`) REFERENCES `user` (`email`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +46,7 @@ CREATE TABLE `bookxuser` (
 
 LOCK TABLES `bookxuser` WRITE;
 /*!40000 ALTER TABLE `bookxuser` DISABLE KEYS */;
-INSERT INTO `bookxuser` VALUES (1,'mario.rossi@email.com',9788830104716,'2021-03-18 00:00:00',NULL,1),(2,'mario.rossi@email.com',9788834710081,'2022-05-11 00:00:00',NULL,2),(3,'mario.rossi@email.com',9788806239831,'2023-02-17 00:00:00',NULL,1),(4,'mario.rossi@email.com',9781781101582,'2023-06-28 00:00:00',NULL,0);
+INSERT INTO `bookxuser` VALUES ('anna.verdi@email.com',9781781101582,'2023-06-29 20:23:41',NULL,0,NULL,NULL),('mario.rossi@email.com',9781781101582,'2023-06-28 00:00:00',NULL,0,'Good book! Reccomended','true'),('mario.rossi@email.com',9788806239831,'2023-02-17 00:00:00',NULL,1,NULL,NULL),('mario.rossi@email.com',9788830104716,'2021-03-18 00:00:00',NULL,1,NULL,NULL),('mario.rossi@email.com',9788834710081,'2022-05-11 00:00:00',NULL,2,NULL,NULL);
 /*!40000 ALTER TABLE `bookxuser` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -58,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-28 13:27:31
+-- Dump completed on 2023-06-29 20:28:29
