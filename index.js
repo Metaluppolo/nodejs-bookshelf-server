@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const usersRouter = require('./routes/users');
 const booksRouter = require('./routes/books');
+const bookshelfRouter = require('./routes/bookshelf');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true, }));
@@ -14,6 +15,7 @@ app.get("/", (req, res) => {
 
 /* Routing */
 app.use('/users', usersRouter);
+app.use('/bookshelf', bookshelfRouter);
 app.use('/books', booksRouter);
 
 /* Error handler middleware */

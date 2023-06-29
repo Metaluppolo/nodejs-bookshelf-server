@@ -2,9 +2,12 @@ const helper = require('../helper');
 const db = require('./db.service');
 
 
-async function getUsers() {
-    const sql = "SELECT * FROM user";
-    const params = [];
+async function getBook(isbn) {
+    const sql = 
+       `SELECT *
+        FROM book b 
+        WHERE b.ISBN = ?`;
+    const params = [ isbn ];
     const rows = await db.query(sql, params);
     const data = helper.emptyOrRows(rows);
     const meta = { };
@@ -13,4 +16,6 @@ async function getUsers() {
 }
 
 
-module.exports = { getUsers }
+module.exports = { 
+    getBook 
+}
