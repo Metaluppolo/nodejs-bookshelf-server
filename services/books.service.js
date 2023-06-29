@@ -8,8 +8,8 @@ async function getBook(isbn) {
         FROM book b 
         WHERE b.ISBN = ?`;
     const params = [ isbn ];
-    const rows = await db.query(sql, params);
-    const data = helper.emptyOrRows(rows);
+    const result = await db.query(sql, params);
+    const data = helper.emptyOrRows(result);
     const meta = { };
 
     return { data, meta };
