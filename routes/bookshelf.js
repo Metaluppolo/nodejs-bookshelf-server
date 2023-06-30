@@ -5,7 +5,7 @@ const bookshelfService = require('../services/bookshelf.service')
 
 router.get('/:user', async (req, res, next) => {
     try {
-        res.json(await bookshelfService.getBooks(req.params.user));
+        res.json(await bookshelfService.getBooks(req.params.user, req.query.book));
     } catch (err) {
         console.error(`Error while getting books in bookshelf: `, err.message);
         next(err);

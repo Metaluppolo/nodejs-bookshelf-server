@@ -2,15 +2,20 @@ const helper = require('../helper');
 const db = require('./db.service');
 
 
-async function getBooks(user) {
-    const sql = 
+async function getBooks(user, book = null) {
+    let sql = 
        `SELECT *
         FROM book b 
               INNER JOIN 
              bookxuser bxu 
               ON b.ISBN = bxu.book_ISBN
         WHERE bxu.deletion_date IS NULL AND bxu.user_email = ?`;
-    const params =  [ user ];
+    
+    let params = [ user ];
+    if (book) {
+        sql += ` AND bxu.book_isbn = ?`;
+        params.push(book);
+    }
     const result = await db.query(sql, params);
     const data = helper.emptyOrRows(result);
     const meta = { };
