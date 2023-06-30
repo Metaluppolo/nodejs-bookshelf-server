@@ -9,7 +9,7 @@ async function getBooks(user) {
               INNER JOIN 
              bookxuser bxu 
               ON b.ISBN = bxu.book_ISBN
-        WHERE bxu.user_email = ?`;
+        WHERE bxu.deletion_date IS NULL AND bxu.user_email = ?`;
     const params =  [ user ];
     const result = await db.query(sql, params);
     const data = helper.emptyOrRows(result);
@@ -23,8 +23,9 @@ async function create(book) {
        `INSERT INTO bookxuser 
        (user_email, book_ISBN, addition_date, readings_counter) 
        VALUES
-       (?, ?, ?, 0)`;
-    const params = [ book.user, book.isbn, new Date() ];
+       (?, ?, CURRENT_TIME(), 0)
+       ON DUPLICATE KEY UPDATE addition_date = CURRENT_TIME(), deletion_date = NULL`;
+    const params = [ book.user, book.isbn ];
     const result = await db.query(sql, params);
 
     const message = (result.affectedRows) ? 'Book successfully added to bookshelf' : 'Error in adding book to bookshelf';
@@ -36,7 +37,7 @@ async function update(book, changes) {
     const sql =
         `UPDATE bookxuser 
         SET readings_counter = ?, review = ?, isReccomended = ?
-        WHERE user_email = ? AND book_isbn = ?`;
+        WHERE deletion_date IS NULL AND user_email = ? AND book_isbn = ?`;
     const params = [ changes.readingsCounter, changes.review, changes.isReccomended, book.user, book.isbn ];
     const result = await db.query(sql, params);
     
@@ -46,8 +47,10 @@ async function update(book, changes) {
 }
 
 async function remove(book) {
-    const sql =
-        `DELETE FROM bookxuser WHERE user_email = ? AND book_isbn = ?`;
+    const sql = 
+        `UPDATE bookxuser 
+        SET deletion_date = CURRENT_TIME() 
+        WHERE deletion_date IS NULL AND user_email = ? AND book_isbn = ?`
     const params = [ book.user, book.isbn ];
     const result = await db.query(sql, params);
     
