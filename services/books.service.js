@@ -11,9 +11,8 @@ async function getBookList(missingTo = "", page = 1, booksPerPage = 100) {
         WHERE NOT EXISTS 
             (SELECT * 
             FROM bookxuser bxu 
-            WHERE bxu.book_ISBN = b.ISBN AND bxu.user_email = ?)
+            WHERE deletion_date IS NULL AND bxu.book_ISBN = b.ISBN AND bxu.user_email = ?)
         LIMIT ${offset}, ${booksPerPage}`
-        console.log(missingTo)
     const params = [ missingTo ];
     const result = await db.query(sql, params);
     const data = helper.emptyOrRows(result);

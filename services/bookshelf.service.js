@@ -34,7 +34,6 @@ async function create(book) {
     const result = await db.query(sql, params);
 
     const message = (result.affectedRows) ? 'Book successfully added to bookshelf' : 'Error in adding book to bookshelf';
-
     return { message };
 }
 
