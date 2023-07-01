@@ -2,10 +2,19 @@ const helper = require('../helper');
 const db = require('./db.service');
 
 
-async function getBookList(page = 1, booksPerPage = 10) {
+async function getBookList(missingTo = "", page = 1, booksPerPage = 100) {
     const offset = helper.getOffset(page, booksPerPage);
-    const sql = `SELECT * FROM book LIMIT ${offset}, ${booksPerPage}`;
-    const params = [ ];
+
+    const sql = 
+        `SELECT * 
+        FROM book b
+        WHERE NOT EXISTS 
+            (SELECT * 
+            FROM bookxuser bxu 
+            WHERE bxu.book_ISBN = b.ISBN AND bxu.user_email = ?)
+        LIMIT ${offset}, ${booksPerPage}`
+        console.log(missingTo)
+    const params = [ missingTo ];
     const result = await db.query(sql, params);
     const data = helper.emptyOrRows(result);
     const meta = { page };
