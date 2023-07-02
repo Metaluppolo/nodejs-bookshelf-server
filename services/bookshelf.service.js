@@ -43,7 +43,7 @@ async function update(book, changes) {
         SET readings_counter = IFNULL(?, readings_counter), 
             bookmark_page = IFNULL(?, bookmark_page), 
             review = IFNULL(?, review), 
-            isRecommended = IFNULL(?, isRecommended) 
+            opinion = IFNULL(?, opinion) 
         WHERE deletion_date IS NULL AND user_email = ? AND book_isbn = ?`;
         console.log(changes)
     const params = [ 
