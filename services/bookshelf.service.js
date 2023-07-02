@@ -40,9 +40,20 @@ async function create(book) {
 async function update(book, changes) {
     const sql =
         `UPDATE bookxuser 
-        SET readings_counter = ?, review = ?, isReccomended = ?
+        SET readings_counter = IFNULL(?, readings_counter), 
+            bookmark_page = IFNULL(?, bookmark_page), 
+            review = IFNULL(?, review), 
+            isRecommended = IFNULL(?, isRecommended) 
         WHERE deletion_date IS NULL AND user_email = ? AND book_isbn = ?`;
-    const params = [ changes.readingsCounter, changes.review, changes.isReccomended, book.user, book.isbn ];
+        console.log(changes)
+    const params = [ 
+        changes.readings_counter != null ? changes.readings_counter : null, 
+        changes.bookmark_page != null ? changes.bookmark_page : null,
+        changes.review != null ? changes.review : null,
+        changes.opinion != null ? changes.opinion : null, 
+        book.user, book.isbn 
+    ];
+    console.log(params)
     const result = await db.query(sql, params);
     
     const message = (result.affectedRows) ? 'Bookshelf info successfully updated' : 'Error in updating bookshelf info';
