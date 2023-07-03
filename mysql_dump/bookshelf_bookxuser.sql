@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `bookshelf` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `bookshelf`;
 -- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
 --
 -- Host: localhost    Database: bookshelf
@@ -45,7 +47,7 @@ CREATE TABLE `bookxuser` (
 
 LOCK TABLES `bookxuser` WRITE;
 /*!40000 ALTER TABLE `bookxuser` DISABLE KEYS */;
-INSERT INTO `bookxuser` VALUES ('anna.verdi@email.com',9781781101582,'2023-07-02 19:02:19',NULL,1,49,'Great book!','like'),('anna.verdi@email.com',9788830104716,'2023-07-02 23:29:07',NULL,0,895,'',NULL),('mario.rossi@email.com',9781781101582,'2023-06-28 00:00:00',NULL,5,89,'Good book! Recommended!','like'),('mario.rossi@email.com',9788806239831,'2023-07-02 18:27:49',NULL,1,90,'Nice reading!!','like'),('mario.rossi@email.com',9788830104716,'2023-07-02 18:27:51',NULL,0,261,'Too many pages...','dislike'),('piero.neri@email.com',9788806239831,'2023-07-01 22:28:42',NULL,0,42,NULL,NULL);
+INSERT INTO `bookxuser` VALUES ('anna.verdi@email.com',9781781101582,'2023-07-02 19:02:19',NULL,1,49,'Great book!','like'),('anna.verdi@email.com',9788850318254,'2023-07-03 12:34:04',NULL,0,NULL,NULL,NULL),('anna.verdi@email.com',9788852022562,'2023-07-03 12:34:08',NULL,0,NULL,NULL,NULL),('mario.rossi@email.com',9781781101582,'2023-06-28 00:00:00',NULL,5,89,'Good book! Recommended!','like'),('mario.rossi@email.com',9788806239831,'2023-07-02 18:27:49',NULL,1,90,'Nice reading!!','like'),('mario.rossi@email.com',9788830104716,'2023-07-02 18:27:51',NULL,0,261,'Too many pages...','dislike'),('piero.neri@email.com',9788806239831,'2023-07-01 22:28:42',NULL,0,42,NULL,NULL);
 /*!40000 ALTER TABLE `bookxuser` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -58,4 +60,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-02 23:47:37
+-- Dump completed on 2023-07-03 12:38:06
