@@ -32,8 +32,8 @@ async function create(book) {
        ON DUPLICATE KEY UPDATE addition_date = CURRENT_TIME(), deletion_date = NULL`;
     const params = [ book.user, book.isbn ];
     const result = await db.query(sql, params);
-
     const message = (result.affectedRows) ? 'Book successfully added to bookshelf' : 'Error in adding book to bookshelf';
+
     return { message };
 }
 
@@ -53,9 +53,7 @@ async function update(book, changes) {
         changes.opinion != null ? changes.opinion : null, 
         book.user, book.isbn 
     ];
-    console.log(params)
     const result = await db.query(sql, params);
-    
     const message = (result.affectedRows) ? 'Bookshelf info successfully updated' : 'Error in updating bookshelf info';
 
     return { message };
@@ -68,7 +66,6 @@ async function remove(book) {
         WHERE deletion_date IS NULL AND user_email = ? AND book_isbn = ?`
     const params = [ book.user, book.isbn ];
     const result = await db.query(sql, params);
-    
     const message = (result.affectedRows) ? 'Book successfully removed from bookshelf' : 'Error in removing book from bookshelf';
 
     return { message };
