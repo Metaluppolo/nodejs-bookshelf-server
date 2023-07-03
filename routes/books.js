@@ -5,7 +5,7 @@ const booksService = require('../services/books.service')
 
 router.get('/', async (req, res, next) => {
     try {
-        res.json(await booksService.getBookList(req.query.missingTo, req.query.page, req.query.booksPerPage));
+        res.json(await booksService.getMissingBooks(req.query.missingTo, req.query.title, req.query.page, req.query.booksPerPage));
     } catch (err) {
         console.error(`Error while getting books: `, err.message);
         next(err);
